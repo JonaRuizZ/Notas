@@ -28,11 +28,31 @@ const listarNota = () => {
 
 // UPDATE
 const editarNota = () => {
-    rl.question("¿Qué nota quieres cambiar?", num => {
-        rl.question("Escribe el nuevo contenido", text => {
-            notas[num-1] = text;
+    rl.question("¿Qué nota quieres cambiar?: ", num => {
+        rl.question("Escribe el nuevo contenido: ", text => {
+            notas[num - 1] = text;
             listarNota();
-        })
-    })
+        });
+    });
+    eliminarNota();
 };
+
 // DELETE
+const eliminarNota = () => {
+    rl.question("¿Qué nota quieres eliminar?", num => {
+        // Convierte la entrada del usuario en un número
+        num = parseInt(num);
+
+        // Verifica si la entrada es un número válido y si la posición existe en el array
+        if (!isNaN(num) && num >= 1 && num <= notas.length) {
+            // Utiliza el método splice para eliminar la nota en la posición especificada
+            notas.splice(num - 1, 1);
+            console.log("La nota fue eliminada correctamente :)");
+            console.log("");
+            console.log("Este es tu listado de notas actualizado:");
+            listarNota();
+        } else {
+            console.log("La posición ingresada no es válida.");
+        }
+    });
+};
